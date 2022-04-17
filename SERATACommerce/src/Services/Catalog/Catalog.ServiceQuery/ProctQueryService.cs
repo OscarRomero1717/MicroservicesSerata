@@ -34,7 +34,7 @@ namespace Catalog.ServiceQuery
         {
             try
             {
-                var collection = _context.Products.Where(x => products == null || products.Contains(x.ProductId))
+                var collection = await _context.Products.Where(x => products == null || products.Contains(x.ProductId))
                 .OrderByDescending(x => x.ProductId).GetPagedAsync(page, take);
 
                 return collection.MapTo<DataCollection<ProductDto>>();
