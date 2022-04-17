@@ -1,19 +1,63 @@
 ﻿using Catalog.PersistenceDataBase;
+using Catolog.ServiceQuery;
+using Microsoft.EntityFrameworkCore;
+using Service.CommonCollection;
+using Service.CommonMapping;
+using Service.CommonPaging;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+
+using System.Threading.Tasks;
 
 namespace Catalog.ServiceQuery
 {
-    public class ProctQueryService
+    public interface IProdctQueryService
+    {
+        Task<DataCollection<ProductDto>> GetAllAsync(int page, int take, IEnumerable<int> products = null);
+        Task<ProductDto> GetByIdAsync(int id);
+    }
+
+    public class ProctQueryService : IProdctQueryService
     {
 
-        private readonly AplicationDBContext _context ;
-        public  ProctQueryService (AplicationDBContext context) 
+
+
+        private readonly AplicationDBContext _context;
+        public ProctQueryService(AplicationDBContext context)
         {
             _context = context;
         }
 
+
+        public async Task<DataCollection<ProductDto>> GetAllAsync(int page, int take, IEnumerable<int> products = null)
+        {
+            try
+            {
+                var collection = _context.Products.Where(x => products == null || products.Contains(x.ProductId))
+                .OrderByDescending(x => x.ProductId).GetPagedAsync(page, take);
+
+                return collection.MapTo<DataCollection<ProductDto>>();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
+
+
+        }
+
+
+        public async Task<ProductDto> GetByIdAsync(int id)
+        {
+
+            return _context.Products.Where(x => x.ProductId == id).FirstOrDefault().MapTo<ProductDto>();
+
+            //return (await _context.Products.SingleAsync(x => x.ProductId == id)).MapTo<ProductDto>() ; 
+
+        }
 
     }
 }

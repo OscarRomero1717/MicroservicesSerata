@@ -1,4 +1,5 @@
 using Catalog.PersistenceDataBase;
+using Catalog.ServiceQuery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -30,6 +31,8 @@ namespace Catalog_API
             opts.UseSqlServer(
                 Configuration.GetConnectionString("DefaulConnection"),
                 x  => x.MigrationsHistoryTable("__EFMigrationHistory","Catalog")));
+
+            services.AddTransient<IProdctQueryService, ProctQueryService>();
             services.AddControllers();
         }
 
