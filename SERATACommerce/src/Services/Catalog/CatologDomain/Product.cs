@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
 namespace CatologDomain
 {
     public class Product
     {
-         public int IdProduct { get; set; }
+         public int ProductId { get; set; }
 
         public string NameProduct { get; set; } 
+
+        public string DescriptionProduct { get; set; }
+
+        public int Price { get; set; }
+
+        public ProductInStock stock { get; set; }
 
     }
 }
