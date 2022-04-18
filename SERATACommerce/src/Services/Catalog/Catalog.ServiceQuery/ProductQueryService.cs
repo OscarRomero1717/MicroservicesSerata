@@ -18,13 +18,13 @@ namespace Catalog.ServiceQuery
         Task<ProductDto> GetByIdAsync(int id);
     }
 
-    public class ProctQueryService : IProdctQueryService
+    public class ProductQueryService : IProdctQueryService
     {
 
 
 
         private readonly AplicationDBContext _context;
-        public ProctQueryService(AplicationDBContext context)
+        public ProductQueryService(AplicationDBContext context)
         {
             _context = context;
         }
@@ -32,20 +32,11 @@ namespace Catalog.ServiceQuery
 
         public async Task<DataCollection<ProductDto>> GetAllAsync(int page, int take, IEnumerable<int> products = null)
         {
-            try
-            {
+            
                 var collection = await _context.Products.Where(x => products == null || products.Contains(x.ProductId))
                 .OrderByDescending(x => x.ProductId).GetPagedAsync(page, take);
 
                 return collection.MapTo<DataCollection<ProductDto>>();
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-            
-
 
         }
 
@@ -53,7 +44,7 @@ namespace Catalog.ServiceQuery
         public async Task<ProductDto> GetByIdAsync(int id)
         {
 
-            return _context.Products.Where(x => x.ProductId == id).FirstOrDefault().MapTo<ProductDto>();
+            return  _context.Products.Where(x => x.ProductId == id).FirstOrDefault().MapTo<ProductDto>();
 
             //return (await _context.Products.SingleAsync(x => x.ProductId == id)).MapTo<ProductDto>() ; 
 

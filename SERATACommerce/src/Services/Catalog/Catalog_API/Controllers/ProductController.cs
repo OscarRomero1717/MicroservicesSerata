@@ -1,5 +1,7 @@
-﻿using Catalog.ServiceQuery;
+﻿using Catalog.ServiceEventHandlers.Commands;
+using Catalog.ServiceQuery;
 using Catolog.ServiceQuery;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Service.CommonCollection;
@@ -16,10 +18,12 @@ namespace Catalog_API.Controllers
     {
         
         private readonly IProdctQueryService _proctQueryService;
-        public ProductController( IProdctQueryService proctQueryService)
+        private readonly IMediator _mediator;
+        public ProductController( IProdctQueryService proctQueryService, IMediator mediator)
         {
            
             _proctQueryService = proctQueryService;
+            _mediator = mediator;
 
 
         }
@@ -47,6 +51,14 @@ namespace Catalog_API.Controllers
             }
 
             return await _proctQueryService.GetAllAsync(page, take, IdsEnumerable);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductCreateCommand command)
+        {
+             await _mediator.Publish(command);
+            return Ok();
         }
     }
 }
