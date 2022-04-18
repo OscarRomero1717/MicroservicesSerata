@@ -1,3 +1,3 @@
 # MicroservicesSerata
-Solution  for  e-commerce into  c# netcore an entity Framekork, microservice-oriented architecture pattern ,design patterns CQRS,MediatorCommand and Dependency Injector,
+Solution  for  e-commerce into  c# netcore and entity Framekork, microservice-oriented architecture pattern ,design patterns CQRS,MediatorCommand and Dependency Injector,
 Unit tests and deployed  into  azure.
