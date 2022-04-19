@@ -3,7 +3,6 @@ using Catalog.ServiceQuery;
 using Catolog.ServiceQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Service.CommonCollection;
 using System;
 using System.Collections.Generic;
@@ -33,7 +32,6 @@ namespace Catalog_API.Controllers
         [Route("{Id}")]
         public async Task<ProductDto> GetById(int Id )
         {
-            
 
             return await _proctQueryService.GetByIdAsync(Id);
         }
