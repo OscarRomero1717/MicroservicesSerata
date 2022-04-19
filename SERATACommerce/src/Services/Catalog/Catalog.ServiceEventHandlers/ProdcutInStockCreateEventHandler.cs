@@ -1,6 +1,8 @@
 ﻿using Catalog.PersistenceDataBase;
 using Catalog.ServiceEventHandlers.Commands;
+using CatologDomain;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -29,11 +31,39 @@ namespace Catalog.ServiceEventHandlers
         {
             _logger.LogInformation("--- started  ProductInStockUpdateCommand");
             var idUpdate = command.Items.Select(x => x.ProductId);
-            var stocks= _context.Stocks.Where(x =>  idUpdate.Contains(x.ProductId)).ToList();
+            var stocks= await _context.Stocks.Where(x =>  idUpdate.Contains(x.ProductId)).ToListAsync();
 
 
-            foreach (var item in stocks)
+            foreach (var item in command.Items)
             {
+                var entry = stocks.SingleOrDefault(x => x.ProductId == item.ProductId);
+
+                if (item.Action == Common.Catalog.Enum.ProdctInStockAction.subtrac)
+                {
+                    if (entry == null || item.Stock > entry.Stock)
+                    {
+                        _logger.LogError("--- Error ProductInStockUpdateCommand  does not have enought stock  ");
+                        throw new Exception($"Products {entry.ProductId} - doesn´t have enough stock");
+                    }
+
+                    entry.Stock = item.Stock;
+                    _logger.LogInformation("--- Stock subtrac  ProductInStockUpdateCommand");
+
+                }
+                else
+                {
+                    if (entry == null)
+                    {
+                        entry = new ProductInStock
+                        {
+                            ProductId = item.ProductId
+                        };
+
+                        await _context.AddAsync(entry);
+                        entry.Stock += item.Stock;
+                    }
+
+                }
 
             }
             await _context.SaveChangesAsync();
