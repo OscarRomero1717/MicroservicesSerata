@@ -1,5 +1,6 @@
 ﻿using Catalog.PersistenceDataBase;
 using Catalog.ServiceEventHandlers.Commands;
+using Catalog.ServiceEventHandlers.exeptions;
 using CatologDomain;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -43,7 +44,7 @@ namespace Catalog.ServiceEventHandlers
                     if (entry == null || item.Stock > entry.Stock)
                     {
                         _logger.LogError("--- Error ProductInStockUpdateCommand  does not have enought stock  ");
-                        throw new Exception($"Products {entry.ProductId} - doesn´t have enough stock");
+                        throw new ProdcutInStockCreateEventHandlerExption($"Products {entry.ProductId} - doesn´t have enough stock");
                     }
 
                     entry.Stock = item.Stock;
@@ -62,6 +63,8 @@ namespace Catalog.ServiceEventHandlers
                         await _context.AddAsync(entry);
                         entry.Stock += item.Stock;
                     }
+
+                    entry.Stock= entry.Stock+item.Stock;
 
                 }
 
