@@ -3,7 +3,7 @@ using Catalog.ServiceQuery;
 using Catolog.ServiceQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Service.CommonCollection;
+using Service.CommonPaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

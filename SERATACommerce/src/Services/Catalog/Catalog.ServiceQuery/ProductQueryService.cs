@@ -1,9 +1,8 @@
 ﻿using Catalog.PersistenceDataBase;
 using Catolog.ServiceQuery;
 using Microsoft.EntityFrameworkCore;
-using Service.CommonCollection;
-using Service.CommonMapping;
 using Service.CommonPaging;
+using Service.CommonMapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,8 +19,6 @@ namespace Catalog.ServiceQuery
 
     public class ProductQueryService : IProdctQueryService
     {
-
-
 
         private readonly AplicationDBContext _context;
         public ProductQueryService(AplicationDBContext context)
@@ -43,10 +40,7 @@ namespace Catalog.ServiceQuery
 
         public async Task<ProductDto> GetByIdAsync(int id)
         {
-
-            return  _context.Products.Where(x => x.ProductId == id).FirstOrDefault().MapTo<ProductDto>();
-
-            //return (await _context.Products.SingleAsync(x => x.ProductId == id)).MapTo<ProductDto>() ; 
+            return (await _context.Products.SingleAsync(x => x.ProductId == id)).MapTo<ProductDto>() ; 
 
         }
 

@@ -64,7 +64,7 @@ namespace Catalog.ServiceEventHandlers
                         entry.Stock += item.Stock;
                     }
 
-                    entry.Stock= entry.Stock+item.Stock;
+                    entry.Stock += item.Stock;
 
                 }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Service.CommonCollection
+namespace Service.CommonPaging
 {
     public class DataCollection<T>
     {
