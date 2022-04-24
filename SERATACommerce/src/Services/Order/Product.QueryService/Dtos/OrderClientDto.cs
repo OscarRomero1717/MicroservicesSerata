@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 using static Order.Common.Enums;
 
-namespace Order.Domain
+namespace Product.QueryService.Dtos
 {
-    public class OrderClient
+    public class OrderClientDto
     {
-
 
         public int OrderId { get; set; }
 
@@ -21,7 +20,6 @@ namespace Order.Domain
 
         public OrderPayment Payment { get; set; }
 
-        public IEnumerable<OrderDetail> Items { get; set; }
-
+        public IEnumerable<OrderDetailDto> Items { get; set; }
     }
 }
