@@ -33,7 +33,7 @@ namespace Order_Api
             services.AddDbContext<AplicationDBContext>(opts =>
             opts.UseSqlServer(
                 Configuration.GetConnectionString("DefaulConnection"),
-                x => x.MigrationsHistoryTable("__EFMigrationHistory", "Order")));
+                x => x.MigrationsHistoryTable("__EFMigrationHistory", "orders")));
             services.AddTransient<IProductQueryService, OrderQueryService>();
             services.AddMediatR(Assembly.Load("Order.ServiceEventHandlers"));
         }

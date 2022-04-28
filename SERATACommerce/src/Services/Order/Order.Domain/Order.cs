@@ -9,7 +9,7 @@ namespace Order.Domain
     {
 
 
-        public int OrderId { get; set; }
+        public int OrderClientId { get; set; }
 
         public OrderStatus Status { get; set; }
 

@@ -11,7 +11,7 @@ namespace Order.PersistenceDataBase.Configuration
         public OrderClientConfiguration(EntityTypeBuilder<OrderClient> entity) 
         {
 
-            entity.HasKey(x=> x.OrderId);
+            entity.HasKey(x=> x.OrderClientId);
             entity.Property(X => X.Payment).IsRequired();
             entity.Property(X => X.Status).IsRequired();
             entity.Property(X => X.ClientId).IsRequired();

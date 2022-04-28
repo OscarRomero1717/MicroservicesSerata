@@ -14,14 +14,14 @@ namespace Order.PersistenceDataBase
         
         }
 
-        public DbSet<OrderDetail> Detail { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
 
-        public DbSet<OrderClient> Orders { get; set; }
+        public DbSet<OrderClient> OrderClient { get; set; }
 
         protected override void OnModelCreating (ModelBuilder builder) 
         {
             base.OnModelCreating(builder);
-            builder.HasDefaultSchema("Order");
+            builder.HasDefaultSchema("orders");
             ModelConfig(builder);
 
         }
