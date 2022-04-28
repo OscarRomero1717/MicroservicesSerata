@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Order.PersistenceDataBase;
+using Order.ProxyServices;
+using Order.ProxyServices.Catolog;
 using Product.QueryService;
 using System;
 using System.Collections.Generic;
@@ -35,7 +37,10 @@ namespace Order_Api
                 Configuration.GetConnectionString("DefaulConnection"),
                 x => x.MigrationsHistoryTable("__EFMigrationHistory", "orders")));
             services.AddTransient<IProductQueryService, OrderQueryService>();
+            services.AddHttpClient<ICatalogProxy, CatalogProxy>();
             services.AddMediatR(Assembly.Load("Order.ServiceEventHandlers"));
+
+            services.Configure<ApiUrls>(opts => Configuration.GetSection("APiUrls").Bind(opts));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

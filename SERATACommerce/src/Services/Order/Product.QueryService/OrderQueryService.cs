@@ -26,11 +26,10 @@ namespace Product.QueryService
         public async Task<DataCollection<OrderDetailDto>> Get(int page, int take, IEnumerable<int> ids = null)
         {
 
-            //var lista = await _context.Detail.Where(x => ids == null || ids.Contains(x.OrderDetailId)).
-            //    OrderBy(x => x.OrderDetailId).GetPagedAsync(page, take);
+            var lista = await _context.OrderDetail.Where(x => ids == null || ids.Contains(x.OrderDetailId)).
+                OrderBy(x => x.OrderDetailId).GetPagedAsync(page, take);
 
-            //return lista.MapTo<DataCollection<OrderDetailDto>>();
-            return  new DataCollection<OrderDetailDto>();
+            return lista.MapTo<DataCollection<OrderDetailDto>>();
 
         }
     }

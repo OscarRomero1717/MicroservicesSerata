@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Order.Common\Order.Common.csproj" />
     <ProjectReference Include="..\Order.PersistenceDataBase\Order.PersistenceDataBase.csproj" />
+    <ProjectReference Include="..\Order.ProxyServices\Order.ProxyServices.csproj" />
   </ItemGroup>
 
 </Project>

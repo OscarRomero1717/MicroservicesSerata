@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Order.PersistenceDataBase\Order.PersistenceDataBase.csproj" />
+    <ProjectReference Include="..\Order.ProxyServices\Order.ProxyServices.csproj" />
     <ProjectReference Include="..\Order.ServiceEventeHandlers\Order.ServiceEventHandlers.csproj" />
     <ProjectReference Include="..\Product.QueryService\Order.QueryService.csproj" />
   </ItemGroup>
